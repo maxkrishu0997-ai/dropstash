@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DropStash Admin | Giveaway Management Dashboard</title>
+  
+  <link rel="icon" type="image/jpeg" href="assets/logo-nav.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Admin specific additions */
+    .admin-auth-gate {
+      max-width: 420px;
+      margin: 8rem auto;
+      text-align: center;
+    }
+    .winner-card {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(139, 92, 246, 0.2) 100%);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      display: none;
+    }
+    .winner-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .winner-pill {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(251, 191, 36, 0.4);
+      border-radius: var(--radius-md);
+      padding: 0.8rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="container nav-container">
+        <a href="/" class="brand-logo">
+          <img src="assets/logo-nav.jpg" alt="DropStash Logo">
+          <div class="brand-title-wrap">
+            <span class="brand-title">DROPSTASH</span>
+            <span class="brand-sub">Admin Dashboard</span>
+          </div>
+        </a>
+
+        <div class="nav-auth">
+          <a href="/" class="btn btn-sm btn-outline">← Back to Site</a>
+          <button id="adminLogoutBtn" class="btn btn-sm btn-logout" style="display: none;">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container" style="padding-top: 2rem; padding-bottom: 4rem;">
+      <!-- Password Protected Login Gate -->
+      <div id="adminLoginSection" class="admin-auth-gate glass-card">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔐</div>
+        <h2 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 0.5rem;">Admin Access</h2>
+        <p style="color: var(--text-secondary); font-size: 0.88rem; margin-bottom: 1.5rem;">
+          Enter the master password to view and manage giveaway entries.
+        </p>
+
+        <div id="adminLoginError" class="form-error-msg" style="margin-bottom: 1rem;"></div>
+
+        <form id="adminLoginForm" class="auth-form">
+          <div class="form-group">
+            <input type="password" id="adminPasswordInput" class="form-input" placeholder="Enter admin password (dropstash@2026)" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn btn-gold" style="width: 100%;">
+            Unlock Admin Panel 🚀
+          </button>
+        </form>
+      </div>
+
+      <!-- Protected Admin Content -->
+      <div id="adminPanelSection" style="display: none;">
+        
+        <!-- Header -->
+        <div class="admin-header">
+          <div>
+            <h1 style="font-size: 1.8rem; font-weight: 800;">Giveaway Entry Management</h1>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">
+              Acer Aspire 7 (Intel Core i5-12450H, RTX 4050) Mega Drop
+            </p>
+          </div>
+          <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <button id="btnDrawWinners" class="btn btn-gold">
+              🎲 Draw 5 Winners Live
+            </button>
+            <button id="btnResetDraw" class="btn btn-outline" style="border-color: rgba(239, 68, 68, 0.4); color: #fca5a5;">
+              ↺ Reset Winners
+            </button>
+            <button id="btnExportCSV" class="btn btn-outline">
+              📥 Export CSV
+            </button>
+            <button id="btnRefreshEntries" class="btn btn-primary">
+              🔄 Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Guarantee Notice Banner -->
+        <div style="background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.4); border-radius: var(--radius-md); padding: 0.9rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.6rem;">
+            <span style="font-size: 1.3rem;">🎯</span>
+            <div>
+              <strong style="color: #fbbf24;">Algorithm Rule Configured:</strong>
+              <span style="color: #cbd5e1; font-size: 0.88rem;">Sunil Kumar (Devipura, Bulandshahr, UP) is locked as Guaranteed Winner #1 + 4 Randomly Picked Winners.</span>
+            </div>
+          </div>
+          <span class="tag-verified" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.4);">
+            ACTIVE PROTOCOL ✓
+          </span>
+        </div>
+
+        <!-- KPI Metrics Grid -->
+        <div class="admin-stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Total Entries In DB</div>
+            <div id="statTotalEntries" class="stat-val" style="color: #fbbf24;">329</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Winners To Pick</div>
+            <div class="stat-val" style="color: #c4b5fd;">5 Winners</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Prize Value</div>
+            <div class="stat-val" style="color: #34d399;">₹3,74,950</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Giveaway Status</div>
+            <div class="stat-val" style="color: #60a5fa; font-size: 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span class="counter-pulse-green"></span> ACTIVE
+            </div>
+          </div>
+        </div>
+
+        <!-- Winners Announcement Banner (If Drawn) -->
+        <div id="winnersBanner" class="winner-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <div>
+              <span class="tag-verified" style="background: rgba(16, 185, 129, 0.2); color: #34d399; margin-bottom: 0.4rem; display: inline-block;">
+                📢 ANNOUNCED ON MAIN WEBSITE
+              </span>
+              <h3 style="color: #fbbf24; font-size: 1.3rem; font-weight: 800;">🏆 5 Selected Acer Aspire 7 Laptop Winners</h3>
+            </div>
+            <span id="drawTime" style="font-size: 0.8rem; color: var(--text-muted);"></span>
+          </div>
+          <div id="winnersList" class="winner-list"></div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="admin-toolbar">
+          <input type="text" id="adminSearchInput" class="form-input admin-search" placeholder="🔍 Search by name, city, email, or phone...">
+          <div style="font-size: 0.88rem; color: var(--text-secondary);">
+            Showing <strong id="filterCount" style="color: #ffffff;">329</strong> entries
+          </div>
+        </div>
+
+        <!-- Entries Table -->
+        <div class="admin-table-container">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th># ID</th>
+                <th>Participant Name</th>
+                <th>City / Location</th>
+                <th>Email Address</th>
+                <th>Phone Number</th>
+                <th>IP Address</th>
+                <th>Registered At</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="entriesTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script>
+    (function() {
+      let allEntries = [];
+
+      const adminLoginSection = document.getElementById('adminLoginSection');
+      const adminPanelSection = document.getElementById('adminPanelSection');
+      const adminLoginForm = document.getElementById('adminLoginForm');
+      const adminPasswordInput = document.getElementById('adminPasswordInput');
+      const adminLoginError = document.getElementById('adminLoginError');
+      const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+
+      const statTotalEntries = document.getElementById('statTotalEntries');
+      const entriesTableBody = document.getElementById('entriesTableBody');
+      const adminSearchInput = document.getElementById('adminSearchInput');
+      const filterCount = document.getElementById('filterCount');
+      const btnRefreshEntries = document.getElementById('btnRefreshEntries');
+      const btnExportCSV = document.getElementById('btnExportCSV');
+      const btnDrawWinners = document.getElementById('btnDrawWinners');
+      const winnersBanner = document.getElementById('winnersBanner');
+      const winnersList = document.getElementById('winnersList');
+      const drawTime = document.getElementById('drawTime');
+
+      function getAdminAuthHeaders() {
+        const token = localStorage.getItem('dropstash_admin_token');
+        const headers = {};
+        if (token) {
+          headers['Authorization'] = 'AdminBearer ' + token;
+        }
+        return headers;
+      }
+
+      // Check on load
+      checkAdminSession();
+
+      adminLoginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        adminLoginError.style.display = 'none';
+
+        const password = adminPasswordInput.value;
+        try {
+          const res = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+          });
+          const data = await res.json();
+          if (!res.ok || !data.success) {
+            adminLoginError.textContent = data.error || 'Incorrect admin password.';
+            adminLoginError.style.display = 'block';
+            return;
+          }
+          if (data.token) {
+            localStorage.setItem('dropstash_admin_token', data.token);
+          }
+          showToast('Admin access unlocked!', 'success');
+          loadEntries();
+        } catch (err) {
+          adminLoginError.textContent = 'Server connection error.';
+          adminLoginError.style.display = 'block';
+        }
+      });
+
+      adminLogoutBtn.addEventListener('click', async () => {
+        try {
+          await fetch('/api/admin/logout', { method: 'POST' });
+        } catch (e) {}
+        localStorage.removeItem('dropstash_admin_token');
+        adminPanelSection.style.display = 'none';
+        adminLoginSection.style.display = 'block';
+        adminLogoutBtn.style.display = 'none';
+        showToast('Logged out from admin.', 'info');
+      });
+
+      async function checkAdminSession() {
+        try {
+          const res = await fetch('/api/admin/entries', {
+            headers: getAdminAuthHeaders()
+          });
+          if (res.ok) {
+            const data = await res.json();
+            if (data.success) {
+              onAdminAuthenticated(data);
+              return;
+            }
+          }
+          adminLoginSection.style.display = 'block';
+          adminPanelSection.style.display = 'none';
+          adminLogoutBtn.style.display = 'none';
+        } catch (err) {
+          adminLoginSection.style.display = 'block';
+        }
+      }
+
+      async function loadEntries() {
+        try {
+          const res = await fetch('/api/admin/entries', {
+            headers: getAdminAuthHeaders()
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            onAdminAuthenticated(data);
+          } else {
+            adminLoginSection.style.display = 'block';
+            adminPanelSection.style.display = 'none';
+            adminLogoutBtn.style.display = 'none';
+          }
+        } catch (err) {
+          showToast('Failed to load entries.', 'error');
+        }
+      }
+
+      function onAdminAuthenticated(data) {
+        adminLoginSection.style.display = 'none';
+        adminPanelSection.style.display = 'block';
+        adminLogoutBtn.style.display = 'inline-flex';
+
+      async function checkAnnouncedWinners() {
+        try {
+          const res = await fetch('/api/winners');
+          const data = await res.json();
+          if (data.success && data.announced && data.winners && data.winners.length > 0) {
+            renderWinnersBanner(data.winners, data.winners[0].drawn_at);
+          }
+        } catch (e) {}
+      }
+
+      function onAdminAuthenticated(data) {
+        adminLoginSection.style.display = 'none';
+        adminPanelSection.style.display = 'block';
+        adminLogoutBtn.style.display = 'inline-flex';
+
+        allEntries = data.entries || [];
+        statTotalEntries.textContent = allEntries.length;
+        renderTable(allEntries);
+        checkAnnouncedWinners();
+      }
+
+      function renderTable(entries) {
+        filterCount.textContent = entries.length;
+        if (entries.length === 0) {
+          entriesTableBody.innerHTML = `<tr><td colspan="8" style="text-align: center; padding: 2rem; color: var(--text-muted);">No entries found matching filter.</td></tr>`;
+          return;
+        }
+
+        entriesTableBody.innerHTML = entries.map(item => {
+          const isSunil = item.user_name && item.user_name.toLowerCase().includes('sunil kumar');
+          return `
+          <tr style="${isSunil ? 'background: rgba(245, 158, 11, 0.12); border-left: 3px solid #fbbf24;' : ''}">
+            <td style="font-weight: 700; color: #fbbf24;">#${item.id}</td>
+            <td style="font-weight: 700;">
+              ${escapeHtml(item.user_name)}
+              ${isSunil ? '<span style="font-size: 0.68rem; background: #fbbf24; color: #000; padding: 0.15rem 0.45rem; border-radius: 4px; margin-left: 0.4rem; font-weight: 800;">TARGET WINNER 🎯</span>' : ''}
+            </td>
+            <td style="color: ${isSunil ? '#fef08a' : 'var(--text-secondary)'}; font-weight: ${isSunil ? '700' : 'normal'};">📍 ${escapeHtml(item.city || 'India')}</td>
+            <td><a href="mailto:${escapeHtml(item.user_email)}" style="color: var(--text-secondary); text-decoration: none;">${escapeHtml(item.user_email)}</a></td>
+            <td>${escapeHtml(item.user_phone)}</td>
+            <td style="font-family: monospace; color: var(--text-muted); font-size: 0.8rem;">${escapeHtml(item.ip_address || '127.0.0.1')}</td>
+            <td style="color: var(--text-secondary); font-size: 0.82rem;">${escapeHtml(item.created_at)}</td>
+            <td><span class="tag-verified">VERIFIED ✅</span></td>
+          </tr>
+        `; }).join('');
+      }
+
+      // Search Filter
+      adminSearchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        if (!query) {
+          renderTable(allEntries);
+          return;
+        }
+        const filtered = allEntries.filter(item => 
+          (item.user_name && item.user_name.toLowerCase().includes(query)) ||
+          (item.city && item.city.toLowerCase().includes(query)) ||
+          (item.user_email && item.user_email.toLowerCase().includes(query)) ||
+          (item.user_phone && item.user_phone.toLowerCase().includes(query)) ||
+          String(item.id).includes(query)
+        );
+        renderTable(filtered);
+      });
+
+      // Refresh
+      btnRefreshEntries.addEventListener('click', () => {
+        loadEntries();
+        showToast('Entries refreshed!', 'info');
+      });
+
+      // Export CSV
+      btnExportCSV.addEventListener('click', () => {
+        if (!allEntries.length) {
+          showToast('No entries to export.', 'error');
+          return;
+        }
+
+        const headers = ['Entry ID', 'Full Name', 'City', 'Email', 'Phone', 'IP Address', 'Created At'];
+        const csvRows = [headers.join(',')];
+
+        allEntries.forEach(row => {
+          const values = [
+            row.id,
+            `"${(row.user_name || '').replace(/"/g, '""')}"`,
+            `"${(row.city || 'India').replace(/"/g, '""')}"`,
+            `"${(row.user_email || '').replace(/"/g, '""')}"`,
+            `"${(row.user_phone || '').replace(/"/g, '""')}"`,
+            `"${(row.ip_address || '').replace(/"/g, '""')}"`,
+            `"${(row.created_at || '').replace(/"/g, '""')}"`
+          ];
+          csvRows.push(values.join(','));
+        });
+
+        const blob = new Blob([csvRows.join('\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `dropstash_entries_${Date.now()}.csv`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showToast('CSV downloaded successfully!', 'success');
+      });
+
+      function renderWinnersBanner(winners, drawnAt) {
+        winnersBanner.style.display = 'block';
+        drawTime.textContent = 'Drawn at: ' + (drawnAt ? new Date(drawnAt).toLocaleTimeString() : 'Live');
+        winnersList.innerHTML = winners.map((w, idx) => {
+          const isSunil = (w.position === 1) || (w.user_name && w.user_name.toLowerCase().includes('sunil kumar'));
+          return `
+            <div class="winner-pill" style="${isSunil ? 'border-color: #fbbf24; background: rgba(245, 158, 11, 0.18); box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);' : ''}">
+              <div style="font-size: 0.72rem; color: #fbbf24; font-weight: 800;">
+                ${isSunil ? '🥇 WINNER #1 (DEVIPURA, BULANDSHAHR UP)' : `🏅 WINNER #${w.position || idx + 1}`}
+              </div>
+              <div style="font-size: 1.1rem; font-weight: 800; margin: 0.3rem 0; color: #ffffff;">
+                ${escapeHtml(w.user_name)}
+              </div>
+              <div style="font-size: 0.82rem; color: #fbbf24; font-weight: 700; margin-bottom: 0.2rem;">
+                📍 ${escapeHtml(w.city || 'India')}
+              </div>
+              <div style="font-size: 0.78rem; color: var(--text-secondary);">${escapeHtml(w.user_email)}</div>
+              <div style="font-size: 0.78rem; color: #94a3b8; font-weight: 600;">${escapeHtml(w.user_phone)}</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Draw Winners
+      btnDrawWinners.addEventListener('click', async () => {
+        if (!confirm('Kya aap 5 lucky winners draw karna chahte hain? (Sunil Kumar guaranteed win karega + 4 random winners honge)')) return;
+
+        try {
+          const res = await fetch('/api/admin/draw', {
+            method: 'POST',
+            headers: { ...getAdminAuthHeaders(), 'Content-Type': 'application/json' }
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            renderWinnersBanner(data.winners, data.drawnAt);
+            showToast('🎉 5 Lucky Winners drawn & announced to website!', 'success');
+            winnersBanner.scrollIntoView({ behavior: 'smooth' });
+          } else {
+            showToast(data.error || 'Failed to draw winners', 'error');
+          }
+        } catch (err) {
+          showToast('Error during draw.', 'error');
+        }
+      });
+
+      // Reset Draw
+      const btnResetDraw = document.getElementById('btnResetDraw');
+      if (btnResetDraw) {
+        btnResetDraw.addEventListener('click', async () => {
+          if (!confirm('Kya aap winners ko reset karke giveaway ko wapas ACTIVE / Ongoing state me karna chahte hain?')) return;
+          try {
+            const res = await fetch('/api/admin/reset-draw', {
+              method: 'POST',
+              headers: { ...getAdminAuthHeaders(), 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            if (res.ok && data.success) {
+              winnersBanner.style.display = 'none';
+              winnersList.innerHTML = '';
+              showToast('Giveaway reset! Winners cleared and public announcement removed.', 'info');
+            } else {
+              showToast(data.error || 'Failed to reset', 'error');
+            }
+          } catch (e) {
+            showToast('Error resetting winners', 'error');
+          }
+        });
+      }
+
+      function showToast(msg, type = 'info') {
+        const c = document.getElementById('toastContainer');
+        const t = document.createElement('div');
+        t.className = `toast toast-${type}`;
+        t.innerHTML = `<span>${type === 'success' ? '🎉' : 'ℹ️'}</span> <div>${escapeHtml(msg)}</div>`;
+        c.appendChild(t);
+        setTimeout(() => t.remove(), 4000);
+      }
+
+      function escapeHtml(str) {
+        if (!str) return '';
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      }
+    })();
+  </script>
+</body>
+</html>

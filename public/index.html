@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DropStash | Official Mega Giveaway - Acer Aspire 7 RTX 4050</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="assets/logo-nav.jpg">
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    <!-- Top Announcement Alert -->
+    <div class="alert-ticker">
+      <span class="ticker-pulse"></span>
+      <span>🔥 <strong>MEGA GIVEAWAY GOING ON:</strong> 5 Lucky Winners Will Get Brand New Acer Aspire 7 RTX 4050 Gaming Laptops!</span>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+      <div class="container nav-container">
+        <!-- Logo -->
+        <a href="/" class="brand-logo">
+          <img src="assets/logo-nav.jpg" alt="DropStash Logo">
+          <div class="brand-title-wrap">
+            <span class="brand-title">DROPSTASH</span>
+            <span class="brand-sub">Official Giveaways</span>
+          </div>
+        </a>
+
+        <!-- Nav Links -->
+        <ul class="nav-links">
+          <li><a href="#giveaway">🎮 Giveaway</a></li>
+          <li><a href="#history">📜 Past Drops</a></li>
+          <li><a href="#specs">⚡ Specs</a></li>
+          <li><a href="#how-it-works">📋 How It Works</a></li>
+          <li><a href="#rules">⚖️ Rules & FAQ</a></li>
+          <li><a href="/admin" target="_blank" style="color: #fbbf24;">🔑 Admin</a></li>
+        </ul>
+
+        <!-- Nav Auth State -->
+        <div class="nav-auth">
+          <!-- Logged Out State -->
+          <div id="navAuthLoggedOut" style="display: flex; gap: 0.6rem;">
+            <button id="btnOpenLogin" class="btn btn-sm btn-outline">Login</button>
+            <button id="btnOpenRegister" class="btn btn-sm btn-primary">Register Free</button>
+          </div>
+
+          <!-- Logged In State -->
+          <div id="navAuthLoggedIn" style="display: none; align-items: center; gap: 0.75rem;">
+            <div class="user-badge">
+              <div id="navUserAvatar" class="user-avatar-circle">U</div>
+              <span id="navUserName">User</span>
+            </div>
+            <button id="navLogoutBtn" class="btn btn-logout" title="Logout">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero / Giveaway Showcase -->
+      <section id="giveaway" class="hero-section">
+        <div class="container">
+          <div class="hero-header">
+            <div class="badge-row">
+              <span class="badge-status">
+                <span class="counter-pulse-green" style="background-color: #fbbf24; box-shadow: 0 0 8px #fbbf24;"></span>
+                Giveaway Going On
+              </span>
+              <span class="badge-winners">
+                🏆 5 Winners Guaranteed
+              </span>
+            </div>
+
+            <h1 class="hero-title">
+              Win A Beast <span class="title-gradient-gold">Acer Aspire 7</span> Gaming Laptop
+            </h1>
+            <p class="hero-subtitle">
+              DropStash is giving away 5 factory-sealed Acer Aspire 7 (Intel Core i5-12450H + RTX 4050) machines with full 1-year brand warranty. 100% Free entry for verified participants!
+            </p>
+          </div>
+
+          <!-- Official Announced Winners Banner (Shown when winners are drawn) -->
+          <div id="announcedWinnersSection" class="announced-winners-banner" style="display: none; margin-bottom: 2.5rem;">
+            <div class="announced-card">
+              <div class="announced-header">
+                <span class="badge-status" style="background: rgba(245, 158, 11, 0.2); border-color: #fbbf24; color: #fbbf24; margin-bottom: 0.6rem;">
+                  🏆 OFFICIAL WINNERS ANNOUNCED
+                </span>
+                <h2 style="font-size: 2rem; font-weight: 900; color: #ffffff; margin-bottom: 0.5rem;">
+                  Congratulations To Our <span class="title-gradient-gold">5 Acer Aspire 7 Winners</span>!
+                </h2>
+                <p style="color: var(--text-secondary); font-size: 0.95rem;">
+                  The official transparent draw has completed! 5 Lucky participants won factory-sealed RTX 4050 Acer Aspire 7 Gaming Laptops.
+                </p>
+              </div>
+
+              <div id="announcedWinnersGrid" class="announced-winners-grid">
+                <!-- Rendered dynamically -->
+              </div>
+
+              <div style="margin-top: 1.5rem; font-size: 0.88rem; color: #34d399; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 0.4rem;">
+                <span>🛡️</span> All 5 Units dispatched with 1-Year Official Acer Warranty & Courier Tracking!
+              </div>
+            </div>
+          </div>
+
+          <!-- Giveaway Main Grid -->
+          <div class="giveaway-grid">
+            <!-- Left Card: Product Showcase & Detailed Specs -->
+            <div class="glass-card product-showcase">
+              <div class="product-image-container">
+                <img src="assets/laptop.jpg" alt="Acer Aspire 7 Gaming Laptop">
+                <div class="product-price-pill">
+                  Worth ₹74,990 • FREE
+                </div>
+              </div>
+
+              <h2 class="product-info-title">Acer Aspire 7 Gaming Laptop</h2>
+              <p style="color: var(--text-secondary); font-size: 0.92rem;">
+                Model: A715-76G | Charcoal Black Aluminum Chassis | Windows 11 Home
+              </p>
+
+              <!-- Specs Grid -->
+              <div id="specs" class="product-specs-grid">
+                <div class="spec-item">
+                  <div class="spec-icon">⚡</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">Processor</span>
+                    <span class="spec-val">Intel® Core™ i5-12450H (12th Gen)</span>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🎮</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">Graphics GPU</span>
+                    <span class="spec-val">NVIDIA® GeForce RTX™ 4050 6GB</span>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🚀</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">RAM Memory</span>
+                    <span class="spec-val">16 GB DDR4 (Upgradable to 32GB)</span>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">💾</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">Storage</span>
+                    <span class="spec-val">512 GB PCIe Gen4 NVMe SSD</span>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">🖥️</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">Display</span>
+                    <span class="spec-val">15.6" FHD 144Hz IPS Slim-Bezel</span>
+                  </div>
+                </div>
+
+                <div class="spec-item">
+                  <div class="spec-icon">❄️</div>
+                  <div class="spec-detail">
+                    <span class="spec-label">Thermal System</span>
+                    <span class="spec-val">Dual Fans & Twin Air-Inlet Design</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Card: Action & Live Counters -->
+            <div class="glass-card action-panel">
+              <!-- Countdown Box -->
+              <div class="countdown-box">
+                <div class="box-heading">
+                  <span>⏳</span> GIVEAWAY CLOSING COUNTDOWN
+                </div>
+                <div class="timer-units">
+                  <div class="time-card">
+                    <div id="timerDays" class="time-number">03</div>
+                    <div class="time-label">Days</div>
+                  </div>
+                  <div class="time-card">
+                    <div id="timerHours" class="time-number">00</div>
+                    <div class="time-label">Hours</div>
+                  </div>
+                  <div class="time-card">
+                    <div id="timerMinutes" class="time-number">00</div>
+                    <div class="time-label">Mins</div>
+                  </div>
+                  <div class="time-card">
+                    <div id="timerSeconds" class="time-number">00</div>
+                    <div class="time-label">Secs</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Total Entries Live Counter -->
+              <div class="counter-box">
+                <div class="counter-header">Total Verified Entries</div>
+                <div class="counter-value-wrapper">
+                  <div id="totalEntriesCounter" class="counter-number">29</div>
+                  <span class="counter-unit">Entries</span>
+                </div>
+                <div>
+                  <span class="counter-live-badge">
+                    <span class="counter-pulse-green"></span>
+                    Live SQLite Counter Sync
+                  </span>
+                </div>
+              </div>
+
+              <!-- User Session Alert Card (Shown when logged in) -->
+              <div id="userStatusCard" class="user-status-card" style="display: none;">
+                <span id="userStatusText">Logged in</span>
+              </div>
+
+              <!-- CTA Container -->
+              <div class="cta-container">
+                <button id="btnEnterGiveaway" class="btn btn-enter-huge">
+                  <span id="btnEnterText">⚡ Enter Giveaway</span>
+                </button>
+                <div class="entry-guarantee-note">
+                  <span>🔒</span> 100% Free Entry • 1 Entry per verified user • 5 Winners
+                </div>
+              </div>
+
+              <!-- Live Verified Feed Ticker -->
+              <div class="recent-activity-box">
+                <div class="recent-title">
+                  <span>Recent Participants</span>
+                  <span style="color: #34d399;">● Live</span>
+                </div>
+                <ul id="recentEntriesList" class="recent-list">
+                  <li class="recent-item"><span>Tarun G***</span><span>Entered Just Now</span></li>
+                  <li class="recent-item"><span>Sameer Q***</span><span>Entered 15m ago</span></li>
+                  <li class="recent-item"><span>Megha B***</span><span>Entered 45m ago</span></li>
+                </ul>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- History / Past Giveaways Section -->
+      <section id="history" class="history-section">
+        <div class="container">
+          <div class="section-header">
+            <div class="badge-row">
+              <span class="badge-status" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(16, 185, 129, 0.15); color: #34d399;">
+                <span class="counter-pulse-green"></span>
+                100% Proven & Delivered Drops
+              </span>
+            </div>
+            <h2 class="section-title">Past Giveaway <span class="title-gradient-gold">Hall of Fame</span></h2>
+            <p class="section-subtitle">
+              DropStash has a proven track record of genuine giveaways. Check out our completed festival drops and transparent winner dispatches.
+            </p>
+          </div>
+
+          <div class="history-grid">
+            <!-- Dussehra Giveaway Card -->
+            <div class="history-card">
+              <div class="history-img-wrap">
+                <img src="assets/past-vivo.jpg" alt="Dussehra 5x Vivo V40 Pro 5G Drop">
+                <div class="history-badge-top">
+                  <span class="history-tag-fest">🏹 Dussehra Mega Drop</span>
+                  <span class="history-tag-status">✓ 5/5 Delivered</span>
+                </div>
+              </div>
+
+              <div class="history-body">
+                <div class="history-date">📅 12 October 2024 (Dussehra Festival)</div>
+                <h3 class="history-title">5 x Vivo V40 Pro 5G Flagship Smartphones</h3>
+
+                <div class="history-meta-strip">
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Total Value</span>
+                    <span class="history-meta-value" style="color: #fbbf24;">₹2,74,995</span>
+                  </div>
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Winners</span>
+                    <span class="history-meta-value" style="color: #c4b5fd;">5 Lucky Winners</span>
+                  </div>
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Participants</span>
+                    <span class="history-meta-value">1,842 Entries</span>
+                  </div>
+                </div>
+
+                <div class="history-specs-pills">
+                  <span class="history-pill">ZEISS Optics</span>
+                  <span class="history-pill">50MP Sony IMX921 OIS</span>
+                  <span class="history-pill">Dimensity 9200+ (4nm)</span>
+                  <span class="history-pill">5500mAh + 80W</span>
+                </div>
+
+                <div class="history-card-footer">
+                  <span style="font-size: 0.82rem; color: #34d399; font-weight: 700; display: flex; align-items: center; gap: 0.35rem;">
+                    <span>🛡️</span> All 5 Units Received
+                  </span>
+                  <button class="btn btn-sm btn-gold btn-view-past-winners" data-giveaway="dussehra-2024">
+                    👥 View 5 Winners
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Raksha Bandhan Giveaway Card -->
+            <div class="history-card">
+              <div class="history-img-wrap">
+                <img src="assets/past-printer.jpg" alt="Raksha Bandhan 10x HP Smart Tank Printer Drop">
+                <div class="history-badge-top">
+                  <span class="history-tag-fest">🎁 Raksha Bandhan Drop</span>
+                  <span class="history-tag-status">✓ 10/10 Delivered</span>
+                </div>
+              </div>
+
+              <div class="history-body">
+                <div class="history-date">📅 19 August 2024 (Raksha Bandhan)</div>
+                <h3 class="history-title">10 x HP Smart Tank 580 WiFi Color Printers</h3>
+
+                <div class="history-meta-strip">
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Total Value</span>
+                    <span class="history-meta-value" style="color: #fbbf24;">₹1,44,990</span>
+                  </div>
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Winners</span>
+                    <span class="history-meta-value" style="color: #c4b5fd;">10 Sibling Winners</span>
+                  </div>
+                  <div class="history-meta-item">
+                    <span class="history-meta-label">Participants</span>
+                    <span class="history-meta-value">2,410 Entries</span>
+                  </div>
+                </div>
+
+                <div class="history-specs-pills">
+                  <span class="history-pill">Print, Scan & Copy</span>
+                  <span class="history-pill">Wireless WiFi + USB</span>
+                  <span class="history-pill">12,000 Black Ink Pages</span>
+                  <span class="history-pill">Smart App Sync</span>
+                </div>
+
+                <div class="history-card-footer">
+                  <span style="font-size: 0.82rem; color: #34d399; font-weight: 700; display: flex; align-items: center; gap: 0.35rem;">
+                    <span>🛡️</span> All 10 Units Received
+                  </span>
+                  <button class="btn btn-sm btn-gold btn-view-past-winners" data-giveaway="rakshabandhan-2024">
+                    👥 View 10 Winners
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works Section -->
+      <section id="how-it-works" class="steps-section">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">How To Participate in 3 Steps</h2>
+            <p class="section-subtitle">No surveys, no credit card, no spam. Simple and 100% transparent giveaway.</p>
+          </div>
+
+          <div class="steps-grid">
+            <div class="step-card">
+              <div class="step-badge">1</div>
+              <h3 class="step-title">Create Free Account</h3>
+              <p class="step-desc">Register with your name, phone number, and email. Your credentials are securely hashed and encrypted.</p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-badge">2</div>
+              <h3 class="step-title">Click "Enter Giveaway"</h3>
+              <p class="step-desc">Hit the button to confirm your entry. Your participation is logged into our verified SQLite entries database.</p>
+            </div>
+
+            <div class="step-card">
+              <div class="step-badge">3</div>
+              <h3 class="step-title">5 Winners Announced</h3>
+              <p class="step-desc">When the countdown finishes, 5 random winners will be chosen via our cryptographic random draw algorithm.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Rules & FAQ Section -->
+      <section id="rules" class="steps-section" style="background: rgba(255, 255, 255, 0.015);">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">Official Giveaway Rules & Transparency</h2>
+            <p class="section-subtitle">Fairness, authenticity, and legal compliance are at the heart of DropStash.</p>
+          </div>
+
+          <div class="giveaway-grid" style="grid-template-columns: 1fr 1fr;">
+            <div class="glass-card" style="padding: 1.75rem;">
+              <h3 style="color: #fbbf24; margin-bottom: 0.8rem; font-size: 1.15rem;">📌 Participation Rules</h3>
+              <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; list-style-position: inside;">
+                <li>Strictly <strong>1 entry per user</strong> allowed to ensure fair chances.</li>
+                <li>Multiple entries from fraudulent duplicate accounts will be disqualified.</li>
+                <li>Must have a valid phone number and email for winner dispatch notification.</li>
+                <li>Zero entry fee or hidden shipping charges. Everything is 100% free.</li>
+              </ul>
+            </div>
+
+            <div class="glass-card" style="padding: 1.75rem;">
+              <h3 style="color: #c4b5fd; margin-bottom: 0.8rem; font-size: 1.15rem;">📦 Delivery & Prize Claim</h3>
+              <ul style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; list-style-position: inside;">
+                <li>Winners receive an official Acer Aspire 7 sealed retail unit.</li>
+                <li>Includes official 1-Year Acer India Manufacturer On-Site Warranty.</li>
+                <li>Express courier dispatched with tracking within 48 hours of draw.</li>
+                <li>Live draw results will also be verified on the DropStash Admin portal.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a href="/" class="brand-logo" style="margin-bottom: 0.5rem;">
+              <img src="assets/logo-nav.jpg" alt="DropStash Logo" style="height: 38px;">
+              <span class="brand-title" style="font-size: 1.25rem;">DROPSTASH</span>
+            </a>
+            <p>
+              The premier platform for tech giveaways, gaming hardware drops, and transparent community rewards.
+            </p>
+          </div>
+
+          <div class="footer-col">
+            <h4>Quick Navigation</h4>
+            <ul>
+              <li><a href="#giveaway">Current Giveaway</a></li>
+              <li><a href="#specs">Acer Aspire 7 Specs</a></li>
+              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="/admin">Admin Portal</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-col">
+            <h4>Security & Trust</h4>
+            <ul>
+              <li><a href="#rules">Fair Draw Algorithm</a></li>
+              <li><a href="#rules">Privacy Policy</a></li>
+              <li><a href="#rules">Terms of Service</a></li>
+              <li><a href="mailto:support@dropstash.io">support@dropstash.io</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div>© 2026 DropStash Technologies. All rights reserved.</div>
+          <div>Built with Node.js, Express & SQLite</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========================================================================
+       PAST WINNERS MODAL (VERIFIED WINNERS & DISPATCH TRACKING)
+       ======================================================================== -->
+  <div id="pastWinnersModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px;">
+      <button id="pastWinnersModalCloseBtn" class="modal-close-btn" title="Close">✕</button>
+      
+      <div class="modal-header" style="text-align: left; margin-bottom: 1rem;">
+        <span id="pastModalBadge" class="badge-status" style="margin-bottom: 0.5rem; font-size: 0.75rem;">Festival Drop</span>
+        <h3 id="pastModalTitle">Past Winners</h3>
+        <p id="pastModalSubtitle" style="font-size: 0.85rem; color: var(--text-secondary);">Verified delivery tracking records</p>
+      </div>
+
+      <div id="pastWinnersListContainer" class="winners-modal-body">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <div style="border-top: 1px solid var(--border-glass); padding-top: 1rem; text-align: center; font-size: 0.82rem; color: var(--text-muted);">
+        🔒 All serial numbers & tracking IDs audited for transparency.
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       AUTHENTICATION MODAL (REGISTER & LOGIN)
+       ======================================================================== -->
+  <div id="authModal" class="modal-overlay">
+    <div class="modal-card">
+      <button id="modalCloseBtn" class="modal-close-btn" title="Close">✕</button>
+
+      <!-- Tabs -->
+      <div class="modal-tabs">
+        <button id="tabRegister" class="tab-btn active">Register</button>
+        <button id="tabLogin" class="tab-btn">Login</button>
+      </div>
+
+      <!-- Register Form -->
+      <form id="registerForm" class="auth-form">
+        <div class="modal-header">
+          <h3>Join The Giveaway</h3>
+          <p>Register in seconds to secure your entry</p>
+        </div>
+
+        <div id="registerError" class="form-error-msg"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="regName">Full Name</label>
+          <input type="text" id="regName" class="form-input" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regEmail">Email Address</label>
+          <input type="email" id="regEmail" class="form-input" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPhone">Mobile Phone</label>
+          <input type="tel" id="regPhone" class="form-input" placeholder="e.g. 9876543210" required autocomplete="tel">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="regPassword">Password</label>
+          <input type="password" id="regPassword" class="form-input" placeholder="At least 6 characters" minlength="6" required autocomplete="new-password">
+        </div>
+
+        <button type="submit" class="btn btn-gold" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+          Create Account & Enter Giveaway ⚡
+        </button>
+
+        <div class="form-footer-switch">
+          Already registered? <a id="switchToLoginLink">Login here</a>
+        </div>
+      </form>
+
+      <!-- Login Form -->
+      <form id="loginForm" class="auth-form" style="display: none;">
+        <div class="modal-header">
+          <h3>Welcome Back</h3>
+          <p>Sign in to view your entry status</p>
+        </div>
+
+        <div id="loginError" class="form-error-msg"></div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email Address</label>
+          <input type="email" id="loginEmail" class="form-input" placeholder="name@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" class="form-input" placeholder="Enter your password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+          Sign In to DropStash
+        </button>
+
+        <div class="form-footer-switch">
+          Don't have an account yet? <a id="switchToRegisterLink">Register free</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Frontend Client Script -->
+  <script src="js/app.js"></script>
+</body>
+</html>
